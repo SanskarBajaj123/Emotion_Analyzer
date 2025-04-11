@@ -1,0 +1,28 @@
+.footer {
+    background-color: #1da1f2;
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+    margin-top: auto;
+  }
+  
+  .footer p {
+    margin: 5px 0;
+  }
+  
+  .footer-links {
+    margin-top: 15px;
+  }
+  
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+    transition: opacity 0.3s;
+  }
+  
+  .footer-links a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
