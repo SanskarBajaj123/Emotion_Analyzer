@@ -1,17 +1,15 @@
-# 🧠 EmotiSense – Real-Time Emotion Detection from Tweets
-MIT License • Contributions Welcome
+##🧠 Real-Time Emotion Detection from Tweets
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SanskarBajaj123/Sentiment_Analyzer/issues)
 
-Instantly detect the emotional tone behind tweets using deep learning magic! ✨
+> Instantly analyze the sentiment of any text with machine learning magic! ✨
 
----
+## 🌟 [Try it live!]((https://emotion-analyzer-site.onrender.com/))
 
-🌟 **[Try it Live!](https://emotion-analyzer-site.onrender.com/)**
-
----
 
 ## 📝 Overview
 
-**EmotiSense** is a powerful and intuitive full-stack web app that classifies the emotion expressed in a tweet into six categories: Happy, Sad, Angry, Fear, Surprise, and Disgust. It leverages a **BiLSTM deep learning model**, trained on labeled Twitter data, and features a modern **React.js frontend** with a **Flask API** backend. The app is deployed on **Render** for real-time accessibility.
+**Emotion_Analyzer** is a powerful and intuitive full-stack web app that classifies the emotion expressed in a tweet into six categories: Happy, Sad, Angry, Fear, Surprise, and Disgust. It leverages a **BiLSTM deep learning model**, trained on labeled Twitter data, and features a modern **React.js frontend** with a **Flask API** backend. The app is deployed on **Render** for real-time accessibility.
 
 ---
 
