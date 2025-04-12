@@ -3,7 +3,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SanskarBajaj123/Sentiment_Analyzer/issues)
 
-> Instantly analyze the sentiment of any text with machine learning magic! ✨
+> Instantly analyze the emotion of any text with machine learning magic! ✨
 
 ## 🌟 [Try it live!](https://emotion-analyzer-site.onrender.com/)
 
