@@ -15,15 +15,18 @@ function App() {
   const [apiConnected, setApiConnected] = useState(false);
 
   useEffect(() => {
-    // Check API health on component mount
     checkApiStatus();
   }, []);
 
   const checkApiStatus = async () => {
+    console.log('Checking API status...');
     try {
       const response = await fetch('https://emotion-analyzer-sr1i.onrender.com/api/health');
       if (response.ok) {
+        console.log('API is connected');
         setApiConnected(true);
+      } else {
+        console.warn('API responded but not OK');
       }
     } catch (error) {
       console.error('API connection error:', error);
@@ -38,8 +41,10 @@ function App() {
       return;
     }
 
+    console.log('Starting single tweet analysis...');
     setLoading(true);
     try {
+      console.log('Sending POST request to /api/predict');
       const response = await fetch('https://emotion-analyzer-sr1i.onrender.com/api/predict', {
         method: 'POST',
         headers: {
@@ -49,16 +54,19 @@ function App() {
       });
 
       if (!response.ok) {
+        console.error('Server responded with error status');
         throw new Error('Server error');
       }
 
       const data = await response.json();
+      console.log('Received response:', data);
       setResults([data]);
       toast.success('Analysis complete!');
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error during single tweet analysis:', error);
       toast.error('Failed to analyze the text. Please try again.');
     } finally {
+      console.log('Single tweet analysis complete.');
       setLoading(false);
     }
   };
@@ -69,8 +77,10 @@ function App() {
       return;
     }
 
+    console.log(`Starting bulk analysis of ${tweets.length} tweets...`);
     setLoading(true);
     try {
+      console.log('Sending bulk POST request to /api/predict');
       const response = await fetch('https://emotion-analyzer-sr1i.onrender.com/api/predict', {
         method: 'POST',
         headers: {
@@ -80,16 +90,19 @@ function App() {
       });
 
       if (!response.ok) {
+        console.error('Server responded with error status');
         throw new Error('Server error');
       }
 
       const data = await response.json();
+      console.log('Received bulk response:', data);
       setResults(data.results);
       toast.success(`Successfully analyzed ${data.results.length} tweets!`);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error during bulk tweet analysis:', error);
       toast.error('Failed to analyze tweets. Please try again.');
     } finally {
+      console.log('Bulk tweet analysis complete.');
       setLoading(false);
     }
   };
@@ -97,10 +110,10 @@ function App() {
   return (
     <div className="app">
       <Header />
-      
+
       <div className="container">
         <div className="api-status">
-          API Status: 
+          API Status:
           <span className={apiConnected ? "status-connected" : "status-disconnected"}>
             {apiConnected ? " Connected" : " Disconnected"}
           </span>
@@ -112,14 +125,14 @@ function App() {
         </div>
 
         <div className="tabs">
-          <button 
-            className={activeTab === 'single' ? 'active' : ''} 
+          <button
+            className={activeTab === 'single' ? 'active' : ''}
             onClick={() => setActiveTab('single')}
           >
             Single Tweet Analysis
           </button>
-          <button 
-            className={activeTab === 'bulk' ? 'active' : ''} 
+          <button
+            className={activeTab === 'bulk' ? 'active' : ''}
             onClick={() => setActiveTab('bulk')}
           >
             Bulk Analysis
@@ -132,9 +145,7 @@ function App() {
           <BulkAnalysisForm onSubmit={analyzeBulk} loading={loading} />
         )}
 
-        {results.length > 0 && (
-          <Results results={results} />
-        )}
+        {results.length > 0 && <Results results={results} />}
       </div>
 
       <Footer />
