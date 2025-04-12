@@ -4,7 +4,7 @@
 
 > Instantly analyze the sentiment of any text with machine learning magic! ✨
 
-## 🌟 [Try it live!]((https://emotion-analyzer-site.onrender.com/))
+## 🌟 [Try it live!](https://emotion-analyzer-site.onrender.com/)
 
 
 ## 📝 Overview
