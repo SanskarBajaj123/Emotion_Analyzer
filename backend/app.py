@@ -6,16 +6,15 @@ import re
 import numpy as np
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
+# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# Load the model and tokenizer
-print("Loading model and tokenizer...")
-model = tf.keras.models.load_model('best_model_lstm.h5')
-with open('tokenizer.pickle', 'rb') as handle:
-    tokenizer = pickle.load(handle)
+# Global variables for model and tokenizer
+model = None
+tokenizer = None
 
-# Emotion mapping (reverse of what was used during training)
+# Emotion label mapping
 emotion_mapping = {
     0: "sadness",
     1: "anger",
@@ -25,62 +24,64 @@ emotion_mapping = {
     5: "joy"
 }
 
-# Text preprocessing function (same as in training)
-def clean_text(text):
-    """Clean and preprocess text"""
-    if isinstance(text, str):
-        # Convert to lowercase
-        text = text.lower()
-        
-        # Remove URLs
-        text = re.sub(r'http\S+|www\S+|https\S+', '', text)
-        
-        # Remove user mentions and hashtags
-        text = re.sub(r'@\w+|#\w+', '', text)
-        
-        # Remove non-alphanumeric characters
-        text = re.sub(r'[^\w\s]', '', text)
-        
-        # Remove extra spaces
-        text = re.sub(r'\s+', ' ', text).strip()
-        
-        return text
-    return ""
+def load_assets():
+    """Load the model and tokenizer"""
+    global model, tokenizer
+    if model is None:
+        print("Loading model...")
+        model = tf.keras.models.load_model('best_model_lstm.h5')
+    if tokenizer is None:
+        print("Loading tokenizer...")
+        with open('tokenizer.pickle', 'rb') as handle:
+            tokenizer = pickle.load(handle)
 
-# Predict emotion for a given text
+def clean_text(text):
+    """Clean and preprocess the input text"""
+    if not isinstance(text, str):
+        return ""
+    text = text.lower()
+    text = re.sub(r'http\S+|www\S+|https\S+', '', text)
+    text = re.sub(r'@\w+|#\w+', '', text)
+    text = re.sub(r'[^\w\s]', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
 def predict_emotion(text):
+    """Predict emotion from text"""
     cleaned = clean_text(text)
     sequence = tokenizer.texts_to_sequences([cleaned])
     padded = pad_sequences(sequence, maxlen=100, padding='post')
-    prediction = model.predict(padded)[0]
-    pred_class = np.argmax(prediction)
-    confidence = float(prediction[pred_class]) * 100  # Convert to percentage
+    prediction = model.predict(padded, verbose=0)[0]
+    pred_class = int(np.argmax(prediction))
+    confidence = round(float(prediction[pred_class]) * 100, 2)
     return emotion_mapping.get(pred_class, "unknown"), confidence
 
 @app.route('/api/predict', methods=['POST'])
 def api_predict():
-    data = request.json
+    load_assets()
+    data = request.get_json()
+
     if not data or 'text' not in data:
         return jsonify({'error': 'No text provided'}), 400
-    
-    text = data['text']
-    
-    # For bulk analysis
-    if isinstance(text, list):
+
+    text_input = data['text']
+
+    # Bulk text analysis
+    if isinstance(text_input, list):
         results = []
-        for tweet in text:
-            emotion, confidence = predict_emotion(tweet)
+        for txt in text_input:
+            emotion, confidence = predict_emotion(txt)
             results.append({
-                'text': tweet,
+                'text': txt,
                 'emotion': emotion,
                 'confidence': confidence
             })
         return jsonify({'results': results})
-    
-    # For single text analysis
-    emotion, confidence = predict_emotion(text)
+
+    # Single text analysis
+    emotion, confidence = predict_emotion(text_input)
     return jsonify({
-        'text': text,
+        'text': text_input,
         'emotion': emotion,
         'confidence': confidence
     })
@@ -91,4 +92,5 @@ def health_check():
 
 if __name__ == '__main__':
     print("Starting Flask server...")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    load_assets()
+    app.run(host='0.0.0.0', port=5000, debug=False)
