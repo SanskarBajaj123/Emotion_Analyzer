@@ -5,7 +5,7 @@ Instantly detect the emotional tone behind tweets using deep learning magic! ✨
 
 ---
 
-🌟 **[Try it Live!](https://your-render-url.com)** *(replace with your actual Render link)*
+🌟 **[Try it Live!](https://emotion-analyzer-site.onrender.com/)**
 
 ---
 
@@ -50,24 +50,24 @@ Instantly detect the emotional tone behind tweets using deep learning magic! ✨
 ## 🔧 How It Works
 
 ### 📂 Data Foundation
-- Trained on labeled Twitter dataset with six emotional categories.
+- Trained on a labeled Twitter dataset with six emotional categories.
 
 ### 🧹 Preprocessing Pipeline
 - Removes special characters and URLs  
-- Converts to lowercase  
-- Applies stemming (NLTK)  
+- Converts text to lowercase  
+- Applies stemming (via NLTK)  
 - Pads sequences for LSTM input  
 - Encodes labels using one-hot encoding  
 
 ### 🧠 Emotion Classification
 - BiLSTM model with Embedding and Dropout layers  
-- Adam optimizer and categorical cross-entropy loss  
+- Adam optimizer with categorical cross-entropy loss  
 - Evaluated using K-Fold Cross-Validation  
-- Benchmarked against Random Forest and XGBoost  
+- Compared with Random Forest and XGBoost for benchmarking  
 
 ### ⚡ Real-Time Prediction
 - Flask REST API receives tweet text and returns emotion  
-- React.js frontend displays prediction to user instantly  
+- React.js frontend displays the prediction to users instantly  
 
 ---
 
@@ -81,7 +81,7 @@ Instantly detect the emotional tone behind tweets using deep learning magic! ✨
 
 ---
 
-## 🚀 Installation
+## 🚀 Installation & Usage
 
 ### ✅ Prerequisites
 - Python 3.11+  
@@ -89,93 +89,82 @@ Instantly detect the emotional tone behind tweets using deep learning magic! ✨
 
 ### 📥 Clone the Repository
 ```bash
-git clone https://github.com/SanskarBajaj123/EmotiSense.git
-cd EmotiSense
-⚙️ Backend Setup (Flask)
-bash
-Copy
-Edit
+git clone https://github.com/SanskarBajaj123/Emotion_Analyzer.git
+cd Emotion_Analyzer
+```
+
+### ⚙️ Backend Setup (Flask)
+```bash
 cd backend
 pip install -r requirements.txt
 python app.py
-💻 Frontend Setup (React)
-bash
-Copy
-Edit
+```
+
+### 💻 Frontend Setup (React)
+```bash
 cd frontend
 npm install
 npm start
-💻 Usage
-▶️ Running the Flask Server
-bash
-Copy
-Edit
+```
+
+### ▶️ Running the Flask Server
+```bash
 python app.py
-API will run at http://localhost:5000
+```
+> API will run at: `http://localhost:5000`  
+> Frontend will run at: `http://localhost:3000`
 
-🌐 Frontend Access
-Go to http://localhost:3000 to use the web interface.
+---
 
-🔌 API Endpoint
-POST /predict
-Request:
 
-json
-Copy
-Edit
-{
-  "text": "I'm feeling great today!"
-}
-Response:
 
-json
-Copy
-Edit
-{
-  "emotion": "Happy"
-}
-Example API Request in Python
-python
-Copy
-Edit
-import requests
-response = requests.post(
-    "http://localhost:5000/predict",
-    json={"text": "I really enjoyed this movie!"}
-)
-print(response.json())
-🔮 Future Improvements
-🌈 Multi-language NLP support
 
-📊 Sentiment and emotion analytics dashboard
+## 🔮 Future Improvements
 
-📱 Native mobile app with React Native
+- 🌈 Multi-language NLP support  
+- 📊 Sentiment and emotion analytics dashboard  
+- 📱 Native mobile app with React Native  
+- 🧠 Enhanced accuracy with transformer models like BERT  
+- 🔌 Real-time tweet streaming via Twitter API  
+- 🧵 Context-aware emotion detection  
 
-🧠 Use transformer-based models (e.g., BERT)
+---
 
-🔌 Real-time tweet streaming via Twitter API
+## 🤝 Contributing
 
-🧵 Context-aware emotion detection
+Contributions are welcome and appreciated!  
+Here’s how to contribute:
 
-🤝 Contributing
-Contributions are welcome!
+1. Fork the repository  
+2. Create your branch:  
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. Commit your changes:  
+   ```bash
+   git commit -m 'Add AmazingFeature'
+   ```
+4. Push to the branch:  
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. Open a Pull Request 🚀
 
-Fork the repository
+---
 
-Create your branch: git checkout -b feature/AmazingFeature
+## 📄 License
 
-Commit your changes: git commit -m 'Add AmazingFeature'
+This project is licensed under the **MIT License**.  
+See the `LICENSE` file for more details.
 
-Push to the branch: git push origin feature/AmazingFeature
+---
 
-Open a pull request 🚀
+## 👨‍💻 Author
 
-📄 License
-Distributed under the MIT License.
-See LICENSE file for more information.
+**Sanskar Vinodkumar Bajaj**  
+- 🔗 [GitHub](https://github.com/SanskarBajaj123)  
+- 🔗 [LinkedIn](https://www.linkedin.com/in/sanskar-bajaj8377/)
 
-👨‍💻 Author
-Sanskar Vinodkumar Bajaj
-🔗 GitHub
-🔗 LinkedIn
+---
 
+⭐️ *If you found this project helpful, feel free to give it a star and share it with others!*
