@@ -10,7 +10,7 @@
 
 ## 📝 Overview
 
-**Emotion_Analyzer** is a powerful and intuitive full-stack web app that classifies the emotion expressed in a tweet into six categories: Happy, Sad, Angry, Fear, Surprise, and Disgust. It leverages a **BiLSTM deep learning model**, trained on labeled Twitter data, and features a modern **React.js frontend** with a **Flask API** backend. The app is deployed on **Render** for real-time accessibility.
+**Emotion_Analyzer** is a powerful and intuitive full-stack web app that classifies the emotion expressed in a tweet into six categories: Happy, Sad, Angry, Fear, Surprise, and Joy. It leverages a **BiLSTM deep learning model**, trained on labeled Twitter data, and features a modern **React.js frontend** with a **Flask API** backend. The app is deployed on **Render** for real-time accessibility.
 
 ---
 
